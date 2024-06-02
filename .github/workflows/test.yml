@@ -4,6 +4,7 @@ on: ['push']
 jobs:
   test:
     runs-on: ubuntu-latest
+    working-directory: ${{ github.workspace }}/
     env:
       DB: "testdb"
       DB_HOST: "localhost"
@@ -65,8 +66,8 @@ jobs:
             psql -c "CREATE DATABASE $DB"
       - name: Print Wdir
         run: |
-          echo  cd GITHUB_WORKSPACE
-          echo ls -la  $GITHUB_WORKSPACE
+          echo  cd $github.workspace 
+          echo ls -la  $github.workspace 
       - name: Odoo test
         run: |
           # select modules and perform the upgrade
