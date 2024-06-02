@@ -62,10 +62,10 @@ jobs:
       - name: Create Database
         run: |
             createdb $DB
-      - name: 
+      - name: Print Wdir
         run: |
           echo pwd
-          echo ls -la
+          echo $HOME
       - name: Odoo test
         run: |
           # select modules and perform the upgrade
