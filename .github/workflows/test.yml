@@ -36,8 +36,6 @@ jobs:
           path: odoo
       - name: Check out addons
         uses: actions/checkout@v2
-        with:
-          path: openupgrade
       - name: Configuration
         run: |
           sudo apt update
@@ -57,10 +55,10 @@ jobs:
               python3-werkzeug \
               python3-yaml \
               unixodbc-dev
-      # - name: Requirements Installation
-        # run: |
-        #   pip install -q -r odoo/requirements.txt
-        #   pip install -r requirements.txt
+      - name: Requirements Installation
+        run: |
+          # pip install -q -r odoo/requirements.txt
+          pip install -r requirements.txt
 
       # - name: Odoo test
       #   run: |
