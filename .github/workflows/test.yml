@@ -65,8 +65,8 @@ jobs:
             psql -c "CREATE DATABASE $DB"
       - name: Print Wdir
         run: |
-          echo  cd $github.workspace 
-          echo ls -la  $github.workspace 
+          echo  cd ~ 
+          echo ls -la ~ 
       - name: Odoo test
         run: |
           # select modules and perform the upgrade
