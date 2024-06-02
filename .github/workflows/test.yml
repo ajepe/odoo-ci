@@ -5,7 +5,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      DB: "openupgrade"
+      DB: "testdb"
       DB_HOST: "localhost"
       DB_PASSWORD: "odoo"
       DB_PORT: 5432
@@ -75,7 +75,7 @@ jobs:
               $GITHUB_WORKSPACE/odoo/addons \
               $GITHUB_WORKSPACE/odoo/odoo/addons \
               $GITHUB_WORKSPACE/addons"
-              
+
           TESTS=1 $ODOO \
               --addons-path=`echo $ADDONS_PATHS | awk -v OFS="," '$1=$1'` \
               --database=$DB \
@@ -86,4 +86,4 @@ jobs:
               --load=base,web\
               --test-enable \
               --stop-after-init \
-              --update=$MODULES_NEW
+              --update=$MODULES
