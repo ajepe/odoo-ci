@@ -20,11 +20,11 @@ jobs:
       PGPASSWORD: "odoo"
       PGUSER: "odoo"
       USE_DEMO: "yes"
-    # steps:
-    #   - name: Set up Python
-    #     uses: actions/setup-python@v4
-    #     with:
-    #       python-version: '3.10'
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
     #   - name: Configure Postgres
     #     uses: harmon758/postgresql-action@v1
     #     with:
