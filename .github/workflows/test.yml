@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: odoo/odoo
-          ref: "7.0"
+          ref: "17.0"
           fetch-depth: 1
           path: $GITHUB_WORKSPACE/odoo
       - name: Check out addons
@@ -80,7 +80,7 @@ jobs:
               $GITHUB_WORKSPACE/odoo/odoo/addons \
               $GITHUB_WORKSPACE/addons"
 
-          TESTS=1 python3 odoo-bin \
+          TESTS=1 python3 odoo/odoo-bin \
               --addons-path=`echo $ADDONS_PATHS | awk -v OFS="," '$1=$1'` \
               --database=$DB \
               --db_host=$DB_HOST \
