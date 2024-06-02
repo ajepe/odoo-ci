@@ -33,7 +33,7 @@ jobs:
           repository: odoo/odoo
           ref: "7.0"
           fetch-depth: 1
-          path: /opt/odoo
+          path: $GITHUB_WORKSPACE/odoo
       - name: Check out addons
         uses: actions/checkout@v2
       - name: Configuration
