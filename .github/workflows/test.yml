@@ -73,7 +73,7 @@ jobs:
       - name: Odoo test
         run: |
           # select modules and perform the upgrade
-          MODULES=$(grep -E '.*' modules.txt | paste -sd "," -)
+          MODULES=$(grep -E '.*' ${GITHUB_WORKSPACE}/odoo-ci/modules.txt | paste -sd "," -)
           if [ -z "$MODULES" ]; then
              echo "No modules to test yet"
              exit 1
