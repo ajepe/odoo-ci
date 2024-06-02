@@ -11,7 +11,7 @@ jobs:
       DB_PORT: 5432
       DB_USERNAME: "odoo"
       DOWNLOADS: https://github.com/OCA/OpenUpgrade/releases/download/databases
-      ODOO: "./odoo/odoo-bin"
+      ODOO: "./odoo-bin"
       PGHOST: "localhost"
       PGPASSWORD: "odoo"
       PGUSER: "odoo"
@@ -31,9 +31,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: odoo/odoo
-          ref: "16.0"
+          ref: "17.0"
           fetch-depth: 1
-          path: odoo
       - name: Check out addons
         uses: actions/checkout@v2
       - name: Configuration
