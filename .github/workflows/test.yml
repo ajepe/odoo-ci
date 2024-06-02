@@ -62,8 +62,8 @@ jobs:
               unixodbc-dev \
       - name: Requirements Installation
         run: |
-          # pip install -q -r odoo/requirements.txt
-          pip install -r requirements.txt
+          pip install -q -r ${GITHUB_WORKSPACE}/odoo/requirements.txt
+          pip install -q -r ${GITHUB_WORKSPACE}/odoo-ci/requirements.txt
       - name: Create Database
         run: |
             psql -c "CREATE DATABASE $DB"
