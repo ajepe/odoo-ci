@@ -67,12 +67,9 @@ jobs:
       - name: Create Database
         run: |
             psql -c "CREATE DATABASE $DB"
-      - name: Print Wdir
+      - name: Test
         run: |
-          echo ls ${GITHUB_WORKSPACE}
-      - name: Odoo test
-        run: |
-          ADDONS_PATHS="$GITHUB_WORKSPACE/odoo/addons,$GITHUB_WORKSPACE/odoo/odoo/addons
           python3 ${GITHUB_WORKSPACE}/odoo/odoo-bin 
 
 # --addons-path=$ADDONS_PATHS -d=$DB --load=base,web --test-enable --stop-after-init
+# ADDONS_PATHS="$GITHUB_WORKSPACE/odoo/addons,$GITHUB_WORKSPACE/odoo/odoo/addons
