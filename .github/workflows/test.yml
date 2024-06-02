@@ -11,7 +11,7 @@ jobs:
       DB_PORT: 5432
       DB_USERNAME: "odoo"
       DOWNLOADS: https://github.com/OCA/OpenUpgrade/releases/download/databases
-      ODOO: "odoo/odoo-bin"
+      ODOO: "./odoo-bin"
       PGHOST: "localhost"
       PGPASSWORD: "odoo"
       PGUSER: "odoo"
@@ -65,8 +65,8 @@ jobs:
             psql -c "CREATE DATABASE $DB"
       - name: Print Wdir
         run: |
-          echo  cd ~ 
-          echo ls -la ~ 
+          echo  cd GITHUB_WORKSPACE
+          echo ls -la   $GITHUB_WORKSPACE/odoo
       - name: Odoo test
         run: |
           # select modules and perform the upgrade
