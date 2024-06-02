@@ -59,7 +59,9 @@ jobs:
         run: |
           # pip install -q -r odoo/requirements.txt
           pip install -r requirements.txt
-
+      - name: Create Database
+        run: |
+            createdb $DB
       - name: Odoo test
         run: |
           # select modules and perform the upgrade
