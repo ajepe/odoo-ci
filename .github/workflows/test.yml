@@ -37,7 +37,7 @@ jobs:
       - name: Check out addons
         uses: actions/checkout@v4
         with:
-          repository: odoo/odoo
+          repository: ajepe/odoo-ci
           ref: "odoo-ci"
           fetch-depth: 1
           path: odoo-ci
