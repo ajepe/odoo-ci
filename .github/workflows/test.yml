@@ -73,5 +73,6 @@ jobs:
       - name: Odoo test
         run: |
           ADDONS_PATHS="$GITHUB_WORKSPACE/odoo/addons,$GITHUB_WORKSPACE/odoo/odoo/addons
+          python3 ${GITHUB_WORKSPACE}/odoo/odoo-bin 
 
-          python3 ${GITHUB_WORKSPACE}/odoo/odoo-bin --addons-path=$ADDONS_PATHS -d=$DB --load=base,web --test-enable --stop-after-init
+# --addons-path=$ADDONS_PATHS -d=$DB --load=base,web --test-enable --stop-after-init
