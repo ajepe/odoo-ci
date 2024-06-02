@@ -31,9 +31,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: odoo/odoo
-          ref: "17.0"
+          ref: "7.0"
           fetch-depth: 1
-          path: ${{GITHUB_WORKSPACE}}/odoo
+          path: odoo
       - name: Check out addons
         uses: actions/checkout@v2
       - name: Configuration
@@ -54,7 +54,8 @@ jobs:
               python3-simplejson \
               python3-werkzeug \
               python3-yaml \
-              unixodbc-dev
+              unixodbc-dev \
+              tree
       - name: Requirements Installation
         run: |
           # pip install -q -r odoo/requirements.txt
@@ -64,7 +65,7 @@ jobs:
             psql -c "CREATE DATABASE $DB"
       - name: Print Wdir
         run: |
-          echo  $GITHUB_WORKSPACE
+          echo  tree
           echo ls -la  $GITHUB_WORKSPACE
       - name: Odoo test
         run: |
