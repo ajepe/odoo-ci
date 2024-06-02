@@ -66,29 +66,24 @@ jobs:
           MODULES=$(grep -E '.*' modules.txt | paste -sd "," -)
           if [ -z "$MODULES" ]; then
              echo "No modules to test yet"
-             exit
+             exit 1
           fi
-          echo $MODULES
-      #     REQUEST="update ir_module_module set state='uninstalled' \
-      #         where name not in ('$(echo $MODULES_OLD | sed -e "s/,/','/g")')"
-      #     echo Set the modules as not installable if they are not in the following list : $MODULES_OLD
-      #     echo Running $REQUEST
-      #     psql $DB -c "$REQUEST"
-      #     ADDONS_PATHS="\
-      #         $GITHUB_WORKSPACE/odoo/addons \
-      #         $GITHUB_WORKSPACE/odoo/odoo/addons \
-      #         $GITHUB_WORKSPACE/openupgrade"
-      #     echo Execution of Openupgrade with the update of the following modules : $MODULES_NEW
-      #     # Silence redundant logs from unlinking records (1 line is enough)
-      #     # to prevent log overflow
-      #     OPENUPGRADE_TESTS=1 $ODOO \
-      #         --addons-path=`echo $ADDONS_PATHS | awk -v OFS="," '$1=$1'` \
-      #         --database=$DB \
-      #         --db_host=$DB_HOST \
-      #         --db_password=$DB_PASSWORD \
-      #         --db_port=$DB_PORT \
-      #         --db_user=$DB_USERNAME \
-      #         --load=base,web,openupgrade_framework \
-      #         --test-enable \
-      #         --stop-after-init \
-      #         --update=$MODULES_NEW
+          echo list of modules to install : $$MODULES
+          echo Running $REQUEST
+          psql $DB -c "$REQUEST"
+          ADDONS_PATHS="\
+              $GITHUB_WORKSPACE/odoo/addons \
+              $GITHUB_WORKSPACE/odoo/odoo/addons \
+              $GITHUB_WORKSPACE/addons"
+              
+          TESTS=1 $ODOO \
+              --addons-path=`echo $ADDONS_PATHS | awk -v OFS="," '$1=$1'` \
+              --database=$DB \
+              --db_host=$DB_HOST \
+              --db_password=$DB_PASSWORD \
+              --db_port=$DB_PORT \
+              --db_user=$DB_USERNAME \
+              --load=base,web\
+              --test-enable \
+              --stop-after-init \
+              --update=$MODULES_NEW
