@@ -80,9 +80,7 @@ jobs:
           fi
           echo list of modules to install : $MODULES
         
-          ADDONS_PATHS="\
-              $GITHUB_WORKSPACE/odoo/addons \
-              $GITHUB_WORKSPACE/odoo/odoo/addons
+          ADDONS_PATHS="$GITHUB_WORKSPACE/odoo/addons,$GITHUB_WORKSPACE/odoo/odoo/addons
 
           TESTS=1 python3 ${GITHUB_WORKSPACE}/odoo/odoo-bin \
               --addons-path=`echo $ADDONS_PATHS | awk -v OFS="," '$1=$1'` \
