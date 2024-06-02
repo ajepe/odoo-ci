@@ -28,14 +28,18 @@ jobs:
           postgresql user: ${DB_USERNAME}
           postgresql password: ${DB_PASSWORD}
       - name: Check out Odoo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: odoo/odoo
           ref: "17.0"
           fetch-depth: 1
-          path: $GITHUB_WORKSPACE/odoo
+          path: odoo
       - name: Check out addons
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        repository: odoo/odoo
+          ref: "odoo-ci"
+          fetch-depth: 1
+          path: odoo-ci
       - name: Configuration
         run: |
           sudo apt update
