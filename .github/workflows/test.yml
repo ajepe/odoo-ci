@@ -68,7 +68,7 @@ jobs:
              echo "No modules to test yet"
              exit
           fi
-        run: echo $MODULES
+          echo $MODULES
       #     REQUEST="update ir_module_module set state='uninstalled' \
       #         where name not in ('$(echo $MODULES_OLD | sed -e "s/,/','/g")')"
       #     echo Set the modules as not installable if they are not in the following list : $MODULES_OLD
