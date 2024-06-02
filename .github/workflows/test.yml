@@ -63,7 +63,8 @@ jobs:
             createdb $DB
       - name: Print Wdir
         run: |
-          echo ls -la odoo
+          echo  $GITHUB_WORKSPACE
+          echo ls -la  $GITHUB_WORKSPACE
       - name: Odoo test
         run: |
           # select modules and perform the upgrade
