@@ -33,7 +33,7 @@ jobs:
           repository: odoo/odoo
           ref: "17.0"
           fetch-depth: 1
-          path: $GITHUB_WORKSPACE/odoo
+          path: ${{GITHUB_WORKSPACE}}/odoo
       - name: Check out addons
         uses: actions/checkout@v2
       - name: Configuration
@@ -61,7 +61,7 @@ jobs:
           pip install -r requirements.txt
       - name: Create Database
         run: |
-            createdb $DB
+            psql -c "CREATE DATABASE $DB"
       - name: Print Wdir
         run: |
           echo  $GITHUB_WORKSPACE
@@ -74,7 +74,7 @@ jobs:
              echo "No modules to test yet"
              exit 1
           fi
-          echo list of modules to install : $$MODULES
+          echo list of modules to install : $MODULES
           echo Running $REQUEST
           psql $DB -c "$REQUEST"
           ADDONS_PATHS="\
