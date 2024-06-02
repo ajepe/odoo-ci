@@ -65,7 +65,7 @@ jobs:
             psql -c "CREATE DATABASE $DB"
       - name: Print Wdir
         run: |
-          echo  tree
+          echo  cd GITHUB_WORKSPACE
           echo ls -la  $GITHUB_WORKSPACE
       - name: Odoo test
         run: |
@@ -76,8 +76,7 @@ jobs:
              exit 1
           fi
           echo list of modules to install : $MODULES
-          echo Running $REQUEST
-          psql $DB -c "$REQUEST"
+          cd $GITHUB_WORKSPACE
           ADDONS_PATHS="\
               $GITHUB_WORKSPACE/odoo/addons \
               $GITHUB_WORKSPACE/odoo/odoo/addons \
