@@ -69,7 +69,7 @@ jobs:
             psql -c "CREATE DATABASE $DB"
       - name: Print Wdir
         run: |
-          echo ls -al | grep ^d
+          echo ls ${GITHUB_WORKSPACE}
       - name: Odoo test
         run: |
           # select modules and perform the upgrade
@@ -79,20 +79,20 @@ jobs:
              exit 1
           fi
           echo list of modules to install : $MODULES
-          ls $GITHUB_WORKSPACE
-          # ADDONS_PATHS="\
-          #     $GITHUB_WORKSPACE/odoo/addons \
-          #     $GITHUB_WORKSPACE/odoo/odoo/addons \
-          #     $GITHUB_WORKSPACE/addons"
+        
+          ADDONS_PATHS="\
+              $GITHUB_WORKSPACE/odoo/addons \
+              $GITHUB_WORKSPACE/odoo/odoo/addons \
+              $GITHUB_WORKSPACE/addons"
 
-          # TESTS=1 python3 odoo/odoo-bin \
-          #     --addons-path=`echo $ADDONS_PATHS | awk -v OFS="," '$1=$1'` \
-          #     --database=$DB \
-          #     --db_host=$DB_HOST \
-          #     --db_password=$DB_PASSWORD \
-          #     --db_port=$DB_PORT \
-          #     --db_user=$DB_USERNAME \
-          #     --load=base,web\
-          #     --test-enable \
-          #     --stop-after-init \
-          #     --update=$MODULES
+          TESTS=1 python3 ${GITHUB_WORKSPACE}/odoo/odoo-bin \
+              --addons-path=`echo $ADDONS_PATHS | awk -v OFS="," '$1=$1'` \
+              --database=$DB \
+              --db_host=$DB_HOST \
+              --db_password=$DB_PASSWORD \
+              --db_port=$DB_PORT \
+              --db_user=$DB_USERNAME \
+              --load=base,web\
+              --test-enable \
+              --stop-after-init \
+              --update=$MODULES
