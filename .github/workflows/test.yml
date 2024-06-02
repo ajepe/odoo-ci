@@ -33,7 +33,7 @@ jobs:
           repository: odoo/odoo
           ref: "7.0"
           fetch-depth: 1
-          path: odoo
+          path: /opt/odoo
       - name: Check out addons
         uses: actions/checkout@v2
       - name: Configuration
@@ -55,7 +55,6 @@ jobs:
               python3-werkzeug \
               python3-yaml \
               unixodbc-dev \
-              tree
       - name: Requirements Installation
         run: |
           # pip install -q -r odoo/requirements.txt
