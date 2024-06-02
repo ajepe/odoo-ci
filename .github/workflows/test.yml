@@ -27,11 +27,6 @@ jobs:
           postgresql version: "14"
           postgresql user: ${DB_USERNAME}
           postgresql password: ${DB_PASSWORD}
-      - name: DB Creation
-        run: createdb $DB
-      - name: DB Restore
-        run: |
-          wget -q -O- $DOWNLOADS/15.0.psql | pg_restore -d $DB --no-owner
       - name: Check out Odoo
         uses: actions/checkout@v2
         with:
@@ -39,7 +34,7 @@ jobs:
           ref: "16.0"
           fetch-depth: 1
           path: odoo
-      - name: Check out OpenUpgrade
+      - name: Check out addons
         uses: actions/checkout@v2
         with:
           path: openupgrade
@@ -54,7 +49,6 @@ jobs:
               libsasl2-dev \
               libxml2-dev \
               libxslt1-dev \
-              nodejs \
               python3-lxml \
               python3-passlib \
               python3-psycopg2 \
