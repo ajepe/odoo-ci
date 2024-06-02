@@ -63,7 +63,7 @@ jobs:
               python3-werkzeug \
               python3-yaml \
               unixodbc-dev
-      - name: Requirements Installation
+      # - name: Requirements Installation
         # run: |
         #   pip install -q -r odoo/requirements.txt
         #   pip install -r requirements.txt
