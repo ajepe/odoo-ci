@@ -62,6 +62,9 @@ jobs:
       - name: Create Database
         run: |
             createdb $DB
+      - name: |
+        pwd
+        ls -la
       - name: Odoo test
         run: |
           # select modules and perform the upgrade
