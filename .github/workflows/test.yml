@@ -62,7 +62,8 @@ jobs:
       - name: Create Database
         run: |
             createdb $DB
-      - name: |
+      - name: 
+        run: |
           echo pwd
           echo ls -la
       - name: Odoo test
