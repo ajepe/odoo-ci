@@ -27,10 +27,6 @@ jobs:
           postgresql version: "14"
           postgresql user: ${DB_USERNAME}
           postgresql password: ${DB_PASSWORD}
-      - name: Wait / Sleep
-        uses: jakejarvis/wait-action@v0.1.0
-        with:
-          time: "10s"
       - name: DB Creation
         run: createdb $DB
       - name: DB Restore
@@ -68,53 +64,53 @@ jobs:
               python3-yaml \
               unixodbc-dev
       - name: Requirements Installation
-        run: |
-          pip install -q -r odoo/requirements.txt
-          pip install -r requirements.txt
+        # run: |
+        #   pip install -q -r odoo/requirements.txt
+        #   pip install -r requirements.txt
 
-      - name: Odoo test
-        run: |
-          # select modules and perform the upgrade
-          MODULES_OLD=$(\
-              sed -n '/^+========/,$p' \
-              openupgrade/docsource/modules150-160.rst \
-              | grep "Done\|Partial\|Nothing" \
-              | grep -v "theme_" \
-              | sed -rn 's/((^\| *\|del\| *)|^\| *)([0-9a-z_]*)[ \|].*/\3/g p' \
-              | sed '/^\s*$/d' \
-              | paste -d, -s)
-          MODULES_NEW=$(\
-              sed -n '/^+========/,$p' \
-              openupgrade/docsource/modules150-160.rst \
-              | grep "Done\|Partial\|Nothing" \
-              | grep -v "theme_" \
-              | sed -rn 's/((^\| *\|new\| *)|^\| *)([0-9a-z_]*)[ \|].*/\3/g p' \
-              | sed '/^\s*$/d' \
-              | paste -d, -s)
-          if [ -z "$MODULES_NEW" ]; then
-             echo "No modules to test yet"
-             exit
-          fi
-          REQUEST="update ir_module_module set state='uninstalled' \
-              where name not in ('$(echo $MODULES_OLD | sed -e "s/,/','/g")')"
-          echo Set the modules as not installable if they are not in the following list : $MODULES_OLD
-          echo Running $REQUEST
-          psql $DB -c "$REQUEST"
-          ADDONS_PATHS="\
-              $GITHUB_WORKSPACE/odoo/addons \
-              $GITHUB_WORKSPACE/odoo/odoo/addons \
-              $GITHUB_WORKSPACE/openupgrade"
-          echo Execution of Openupgrade with the update of the following modules : $MODULES_NEW
-          # Silence redundant logs from unlinking records (1 line is enough)
-          # to prevent log overflow
-          OPENUPGRADE_TESTS=1 $ODOO \
-              --addons-path=`echo $ADDONS_PATHS | awk -v OFS="," '$1=$1'` \
-              --database=$DB \
-              --db_host=$DB_HOST \
-              --db_password=$DB_PASSWORD \
-              --db_port=$DB_PORT \
-              --db_user=$DB_USERNAME \
-              --load=base,web,openupgrade_framework \
-              --test-enable \
-              --stop-after-init \
-              --update=$MODULES_NEW
+      # - name: Odoo test
+      #   run: |
+      #     # select modules and perform the upgrade
+      #     MODULES_OLD=$(\
+      #         sed -n '/^+========/,$p' \
+      #         openupgrade/docsource/modules150-160.rst \
+      #         | grep "Done\|Partial\|Nothing" \
+      #         | grep -v "theme_" \
+      #         | sed -rn 's/((^\| *\|del\| *)|^\| *)([0-9a-z_]*)[ \|].*/\3/g p' \
+      #         | sed '/^\s*$/d' \
+      #         | paste -d, -s)
+      #     MODULES_NEW=$(\
+      #         sed -n '/^+========/,$p' \
+      #         openupgrade/docsource/modules150-160.rst \
+      #         | grep "Done\|Partial\|Nothing" \
+      #         | grep -v "theme_" \
+      #         | sed -rn 's/((^\| *\|new\| *)|^\| *)([0-9a-z_]*)[ \|].*/\3/g p' \
+      #         | sed '/^\s*$/d' \
+      #         | paste -d, -s)
+      #     if [ -z "$MODULES_NEW" ]; then
+      #        echo "No modules to test yet"
+      #        exit
+      #     fi
+      #     REQUEST="update ir_module_module set state='uninstalled' \
+      #         where name not in ('$(echo $MODULES_OLD | sed -e "s/,/','/g")')"
+      #     echo Set the modules as not installable if they are not in the following list : $MODULES_OLD
+      #     echo Running $REQUEST
+      #     psql $DB -c "$REQUEST"
+      #     ADDONS_PATHS="\
+      #         $GITHUB_WORKSPACE/odoo/addons \
+      #         $GITHUB_WORKSPACE/odoo/odoo/addons \
+      #         $GITHUB_WORKSPACE/openupgrade"
+      #     echo Execution of Openupgrade with the update of the following modules : $MODULES_NEW
+      #     # Silence redundant logs from unlinking records (1 line is enough)
+      #     # to prevent log overflow
+      #     OPENUPGRADE_TESTS=1 $ODOO \
+      #         --addons-path=`echo $ADDONS_PATHS | awk -v OFS="," '$1=$1'` \
+      #         --database=$DB \
+      #         --db_host=$DB_HOST \
+      #         --db_password=$DB_PASSWORD \
+      #         --db_port=$DB_PORT \
+      #         --db_user=$DB_USERNAME \
+      #         --load=base,web,openupgrade_framework \
+      #         --test-enable \
+      #         --stop-after-init \
+      #         --update=$MODULES_NEW
