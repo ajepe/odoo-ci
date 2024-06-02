@@ -74,13 +74,4 @@ jobs:
         run: |
           ADDONS_PATHS="$GITHUB_WORKSPACE/odoo/addons,$GITHUB_WORKSPACE/odoo/odoo/addons
 
-          TESTS=1 python3 ${GITHUB_WORKSPACE}/odoo/odoo-bin \
-              --addons-path=$ADDONS_PATHS \
-              --database=$DB \
-              --db_host=$DB_HOST \
-              --db_password=$DB_PASSWORD \
-              --db_port=$DB_PORT \
-              --db_user=$DB_USERNAME \
-              --load=base,web\
-              --test-enable \
-              --stop-after-init
+          python3 ${GITHUB_WORKSPACE}/odoo/odoo-bin --addons-path=$ADDONS_PATHS -d=$DB --load=base,web --test-enable --stop-after-init
